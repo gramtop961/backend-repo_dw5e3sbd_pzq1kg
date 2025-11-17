@@ -14,8 +14,25 @@ Model name is converted to lowercase for the collection name:
 from pydantic import BaseModel, Field
 from typing import Optional
 
-# Example schemas (replace with your own):
+# Core app schemas
 
+class WishlistItem(BaseModel):
+    """
+    Wishlist items for Pokemon TCG cards
+    Collection name: "wishlistitem"
+    """
+    card_id: str = Field(..., description="Pokemon TCG card ID (e.g., sv3-1)")
+    name: str = Field(..., description="Card name")
+    set_name: Optional[str] = Field(None, description="Set name")
+    set_id: Optional[str] = Field(None, description="Set ID")
+    number: Optional[str] = Field(None, description="Card number within the set")
+    image_url: Optional[str] = Field(None, description="Primary image URL for the card")
+    desired_price: Optional[float] = Field(None, ge=0, description="Target price to buy")
+    notes: Optional[str] = Field(None, description="User notes")
+    status: str = Field("watching", description="watching | bought | removed")
+
+
+# Example schemas (kept for reference)
 class User(BaseModel):
     """
     Users collection schema
